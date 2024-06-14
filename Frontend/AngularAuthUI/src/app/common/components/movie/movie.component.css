@@ -1,0 +1,15 @@
+.card {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.movie-cast {
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 0 12px; 
+}
+.plot {
+    text-align: justify;
+}
+.star {
+    color:gold;
+}

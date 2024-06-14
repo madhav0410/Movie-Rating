@@ -1,0 +1,10 @@
+.form-field {
+    display: block;
+}
+.container-fluid {
+    height: 100vh;
+    background: linear-gradient(to right, #0acffe 0%, #495aff 100%); 
+}
+.card {
+    width: 30%;
+}

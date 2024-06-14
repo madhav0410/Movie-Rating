@@ -1,0 +1,14 @@
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\bin\Debug\net7.0\DataAceess.deps.json
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\bin\Debug\net7.0\DataAceess.runtimeconfig.json
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\bin\Debug\net7.0\DataAceess.dll
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\bin\Debug\net7.0\DataAceess.pdb
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\obj\Debug\net7.0\DataAceess.csproj.AssemblyReference.cache
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\obj\Debug\net7.0\DataAceess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\obj\Debug\net7.0\DataAceess.AssemblyInfoInputs.cache
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\obj\Debug\net7.0\DataAceess.AssemblyInfo.cs
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\obj\Debug\net7.0\DataAceess.csproj.CoreCompileInputs.cache
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\obj\Debug\net7.0\DataAceess.dll
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\obj\Debug\net7.0\refint\DataAceess.dll
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\obj\Debug\net7.0\DataAceess.pdb
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\obj\Debug\net7.0\DataAceess.genruntimeconfig.cache
+C:\Users\pct51\source\repos\AngularAuthApi\DataAcees\obj\Debug\net7.0\ref\DataAceess.dll

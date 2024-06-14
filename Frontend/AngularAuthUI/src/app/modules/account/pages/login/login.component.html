@@ -1,0 +1,45 @@
+
+<div class="container d-flex flex-column justify-content-center align-items-center">
+   
+    <mat-card class="card">
+      <mat-card-title class="my-2 ms-3">Sign In</mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="loginForm">
+            <mat-form-field class="form-field">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" />
+                @if(loginCtrl['email'].touched && loginCtrl['email'].invalid){
+                  <mat-error>
+                    @if(loginCtrl['email'].errors?.['required']){
+                      <span class="text-danger">Please enter the email.</span>
+                    }
+                    @if(loginCtrl['email'].errors?.['email']){
+                      <span class="text-danger">Please enter valid email.</span>
+                    }    
+                  </mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field class="form-field">
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button type="button" mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                @if(loginCtrl['password'].touched && loginCtrl['password'].invalid){
+                  <mat-error>
+                    @if(loginCtrl['password'].errors?.['required']){
+                      <span class="text-danger">Please enter the password.</span>
+                    }
+                  </mat-error>  
+                }
+              </mat-form-field>
+             <div class="d-flex justify-content-end">
+                <button mat-flat-button color="primary" (click)="onLogin()" (keydown.enter)="onLogin()" type="submit">Login</button>
+             </div>
+             <p>Don't have an account ? <a mat-button routerLink="/account/sign-up">SignUp</a></p>
+             <a mat-button routerLink="/account/forgot-password">Forgot Password?</a>
+          </form>
+        </mat-card-content>
+      </mat-card>  
+</div>
+

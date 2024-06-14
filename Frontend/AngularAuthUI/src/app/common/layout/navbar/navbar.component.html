@@ -1,0 +1,18 @@
+<nav class="navbar bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand ms-4">
+        <img src="../../../../assets/appLogo.png" alt="Logo" width="100" class="d-inline-block align-text-top">
+      </a>
+      <div>
+        <a class="me-3" mat-flat-button routerLink="/admin/dashboard">Home</a>
+        @if(isAuthenticated && role === "1"){
+           <button mat-flat-button (click)="openAddMovieDialog()">Add Movie</button>
+        }@if(!isAuthenticated){
+           <a mat-flat-button routerLink="/account/login">Login</a> 
+        }
+        @if(isAuthenticated){
+          <button class="m-3" mat-flat-button  (click)="logout()" type="submit">Logout</button>
+        }
+      </div>
+    </div>
+</nav>

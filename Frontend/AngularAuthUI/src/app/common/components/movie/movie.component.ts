@@ -1,0 +1,97 @@
+import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Movie } from '../../models/movie';
+import { NavbarComponent } from '../../layout/navbar/navbar.component';
+import { MatCardModule } from '@angular/material/card';
+import { MovieService } from '../../service/movie.service';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
+import { UserService } from '../../../modules/user/service/user.service';
+import { AuthService } from '../../../modules/account/service/auth.service';
+import { MatIconModule } from '@angular/material/icon';
+import { SafeUrlPipe } from '../../safe-url.pipe';
+
+
+@Component({
+  selector: 'app-movie',
+  standalone: true,
+  imports: [NavbarComponent,MatCardModule,StarRatingComponent,MatIconModule,SafeUrlPipe],
+  templateUrl: './movie.component.html',
+  styleUrl: './movie.component.css'
+})
+
+export class MovieComponent implements OnInit{
+  movie!: Movie;
+  userRating: number = 0;
+  avgRating: number = 0;
+  title: string = '';
+  email: string = '';
+  isLoggedIn: boolean = this.authService.isLoggedIn();
+
+  constructor(
+    private authService: AuthService,
+    private movieService: MovieService,
+    private userService: UserService, 
+    private route: ActivatedRoute,
+  ){}
+   
+  ngOnInit(): void {
+    this.title = this.route.snapshot.queryParamMap.get('title') ?? '';
+    this.email = this.authService.getEmailFromToken() ?? '';
+
+    if(this.title){
+      this.movieService.getMovieByTitle(this.title).subscribe({
+        next: (res) => {
+          this.movie = res.data;
+        },
+        error: (err) => {
+          console.log(err?.error.message);        
+        }
+      })
+      if(this.isLoggedIn){
+        this.UserRating();
+      }
+      this.AvgRating();
+    }
+  }
+  
+  public onRatingChange(rating: number): void {
+    if(this.title){
+      this.userService.updateRating(this.email,this.title,rating).subscribe({
+        next: ()=>{
+          if(this.isLoggedIn){
+            this.UserRating();
+          }
+          this.AvgRating();
+        },
+        error: (err)=>{
+          console.log(err?.error.message); 
+        }
+      })
+    }
+  }
+
+  private UserRating(): void{
+    this.userService.getUserRating(this.email,this.title).subscribe({
+      next: (res) => {
+        this.userRating = res.data;
+      },
+      error: (err) => {
+        console.log(err?.error.message);        
+      }
+    })
+  }
+
+  private AvgRating(): void{
+    this.userService.getAvgRating(this.title).subscribe({
+      next: (res) => {
+        this.userService.avgRating.next(res.data);
+        this.avgRating = res.data;
+      },
+      error: (err) => {
+        console.log(err?.error.message);        
+      }
+    })
+  }
+   
+}
+

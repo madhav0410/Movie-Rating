@@ -1,0 +1,12 @@
+.form-field {
+    display: block;
+}
+.mat-dialog-content {
+    overflow: hidden;
+    width: 600px !important;
+    padding: 2rem;
+}
+mat-icon{
+    cursor: pointer;
+}
+  

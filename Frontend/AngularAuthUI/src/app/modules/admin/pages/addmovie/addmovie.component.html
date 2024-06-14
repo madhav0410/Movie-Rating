@@ -1,0 +1,142 @@
+<div class="mat-dialog-content">
+
+   <div class="d-flex justify-content-end mb-3">
+    <mat-icon (click)="closeDialog()">close</mat-icon>
+   </div>
+
+  <form [formGroup]="MovieForm">
+    <input formControlName="id" hidden />
+    <mat-form-field class="form-field">
+      <mat-label>Movie Title</mat-label>
+      <input matInput formControlName="title" />
+      @if(MovieCtrl['title'].touched && MovieCtrl['title'].invalid){
+      <mat-error>
+        @if(MovieCtrl['title'].errors?.['required']){
+        <span class="text-danger">Please enter the Title.</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="example-chip-list form-field">
+      <mat-label>Cast</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Enter Casts" formControlName="cast">
+        @for (actor of castList; track actor) {
+        <mat-chip-row (removed)="removeCast(actor)" [editable]="true" (edited)="editCast(actor, $event)"
+          [aria-description]="'press enter to edit ' + actor">
+          {{actor}}
+          <button matChipRemove [attr.aria-label]="'remove ' + actor">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        }
+        <input placeholder="Add Cast..." [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="addCast($event)" />
+      </mat-chip-grid>
+      @if(MovieCtrl['cast'].touched && MovieCtrl['cast'].invalid){
+      <mat-error>
+        @if(MovieCtrl['cast'].errors?.['required']){
+        <span class="text-danger">Please enter the casts.</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Director</mat-label>
+      <input matInput formControlName="director" />
+      @if(MovieCtrl['director'].touched && MovieCtrl['director'].invalid){
+      <mat-error>
+        @if(MovieCtrl['director'].errors?.['required']){
+        <span class="text-danger">Please enter the director name.</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Plot</mat-label>
+      <input matInput formControlName="plot" />
+      @if(MovieCtrl['plot'].touched && MovieCtrl['plot'].invalid){
+        <mat-error>
+          @if(MovieCtrl['plot'].errors?.['required']){
+          <span class="text-danger">Please enter the plot.</span>
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="example-chip-list form-field">
+      <mat-label>Genre</mat-label>
+      <mat-chip-grid #chip aria-label="genre selection" formControlName="genre">
+        @for (genre of genreList; track genre) {
+        <mat-chip-row (removed)="removeGenre(genre)">
+          {{genre}}
+          <button matChipRemove [attr.aria-label]="'remove ' + genre">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        }
+      </mat-chip-grid>
+      <input placeholder="Add Genre..." [matChipInputFor]="chip" [matAutocomplete]="auto"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addGenre($event)" />
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        @for (genre of allGenre; track genre) {
+        <mat-option [value]="genre">{{genre}}</mat-option>
+        }
+      </mat-autocomplete>
+      @if(MovieCtrl['genre'].touched && MovieCtrl['genre'].invalid){
+      <mat-error>
+        @if(MovieCtrl['genre'].errors?.['required']){
+        <span class="text-danger">Please enter the genres.</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="form-field mb-3">
+      <mat-label>Release Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="releaseDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      @if(MovieCtrl['releaseDate'].touched && MovieCtrl['releaseDate'].invalid){
+      <mat-error>
+        @if(MovieCtrl['releaseDate'].errors?.['required']){
+        <span class="text-danger">Please enter the release date.</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Poster Link</mat-label>
+      <input matInput formControlName="poster" />
+      @if(MovieCtrl['poster'].touched && MovieCtrl['poster'].invalid){
+      <mat-error>
+        @if(MovieCtrl['poster'].errors?.['required']){
+        <span class="text-danger">Please enter the poster link.</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Trailer Link</mat-label>
+      <input matInput formControlName="trailer" />
+      @if(MovieCtrl['trailer'].touched && MovieCtrl['trailer'].invalid){
+      <mat-error>
+        @if(MovieCtrl['trailer'].errors?.['required']){
+        <span class="text-danger">Please enter the trailer link.</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+    <div class="d-flex justify-content-end mt-3">
+      <button mat-flat-button color="primary" (click)="submit()" type="submit">
+        @if(editMode){
+        Save
+        }@else {
+        Add
+        }
+      </button>
+    </div>
+  </form>
+</div>

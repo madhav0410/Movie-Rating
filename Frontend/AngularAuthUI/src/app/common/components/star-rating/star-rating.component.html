@@ -1,0 +1,9 @@
+@for(icon of stars; track stars; let index = $index){
+    <mat-icon 
+    (mouseenter)="handleMouseEnter(index)"
+    (mouseleave)="handleMouseLeave()"
+    (click)="rating(index)"
+    [ngClass]="{checked: selectedStar > index}">
+        star
+    </mat-icon>
+}

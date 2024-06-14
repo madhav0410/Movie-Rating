@@ -1,0 +1,16 @@
+<mat-card class="card" (mouseenter)="hover = true" (mouseleave)="hover = false">
+    <mat-card-content class="p-0">
+        <a routerLink={{routerLink}} [queryParams]="{ title: movie.title }">
+            <img [src]="movie.poster" alt="{{movie.title}} poster">
+        </a>
+        <div class="movie-name">{{movie.title}}</div>
+        @if(isAuthenticated){
+            @if(role === "1" && hover){
+                <mat-card-actions  class="card-actions gap-2">
+                    <mat-icon class="bg-white rounded-3" color="primary" (click)="editMovie(movie)">edit</mat-icon>  
+                    <mat-icon class="bg-white rounded-3" color="warn" (click)="deleteMovie(movie)">delete</mat-icon>
+                </mat-card-actions>
+            }  
+        }
+    </mat-card-content>
+</mat-card>

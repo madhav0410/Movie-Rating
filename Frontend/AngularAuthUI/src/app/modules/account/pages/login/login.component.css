@@ -1,0 +1,13 @@
+.form-field {
+    display: block;
+}
+.container {
+    height: 100vh;
+    background-image:url("../../../../../assets/loginBackground.jpg");
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position:center;
+}
+.card {
+    width: 40%;
+}

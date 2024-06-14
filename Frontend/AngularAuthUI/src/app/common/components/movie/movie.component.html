@@ -1,0 +1,46 @@
+<div class="container-fluid mt-3 py-3">
+  @if (movie) { @if (movie.trailer) {
+  <iframe
+    width="100%"
+    height="700"
+    [src]="movie.trailer | safeUrl"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
+  }
+  <mat-card class="card">
+    <mat-card-content class="d-flex gap-3">       
+      <img [src]="movie.poster" alt="{{movie.title}} poster"> 
+      <div class="d-flex flex-column">
+        <div class="d-flex gap-3">
+          <h1 class="fw-bold fs-3">{{movie.title}}</h1>
+          <div class="d-flex fs-5 align-items-center gap-2 mb-3">
+              <mat-icon class="star">star</mat-icon>
+              <span><b>{{avgRating}}</b>/10</span>
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <h2>Cast: </h2>
+          @for(c of movie.cast ; track movie.cast){
+            <h2 class="movie-cast">{{c}}</h2>
+          }
+        </div>
+        <h2>Director: {{movie.director}}</h2>
+        <div class="d-flex gap-2">
+          <h2 >Genre: </h2>
+          @for(g of movie.genre ; track movie.genre){
+            <h2 class="movie-cast">{{g}}</h2>
+          }
+        </div>
+        <h2>Release Date: {{movie.releaseDate}}</h2>
+      
+          <h2>Plot:</h2>
+          <p class="fs-5 plot">{{movie.plot}}.</p>
+        
+        <app-star-rating [starCount]="10" [selectedStar]="userRating" [isLoggedIn]="isLoggedIn" (ratingUpdated)="onRatingChange($event)"></app-star-rating>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  }
+</div>

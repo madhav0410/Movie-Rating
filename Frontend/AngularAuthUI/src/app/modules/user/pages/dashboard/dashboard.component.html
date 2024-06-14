@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-end px-4 mt-2">
+    <mat-form-field appearance="fill">
+        <mat-label>Filter By Genres</mat-label>
+        <mat-select [(ngModel)]="selectedGenres" multiple (selectionChange)="filterMovies()">
+          @for(genre of allGenre; track allGenre){
+            <mat-option [value]="genre">
+                {{ genre }}
+              </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+</div>
+<div class="container-fluid my-1 py-3 d-flex flex-wrap justify-content-center align-items-center gap-2">
+@for(movie of movieService.movieList | async; track movie.title){
+    <app-moviecard [movie]="movie"></app-moviecard>
+}
+</div>
+<app-pagination [pageSize]="pageSize" [totalPages]="totalPages" (changedPage)="onPageChanged($event)"></app-pagination>
+
+
+
+
+
