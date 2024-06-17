@@ -33,6 +33,18 @@ namespace DataAceess.Data
                 .Property(u => u.Email)
                 .IsRequired();
 
+            modelBuilder.Entity<Movie>()
+           .HasKey(m => m.Id);
+
+            modelBuilder.Entity<Movie>()
+                .HasIndex(m => m.Title)
+                .IsUnique(); // Ensure title is unique
+
+            modelBuilder.Entity<Movie>()
+                .Property(m => m.Title)
+                .IsRequired();
+
+
             // Configure Rating entity
             modelBuilder.Entity<Rating>()
                 .HasKey(r => r.Id);
@@ -45,19 +57,6 @@ namespace DataAceess.Data
             .HasPrincipalKey(u => u.Email);
 
 
-
-
-            modelBuilder.Entity<Movie>()
-            .HasKey(m => m.Id);
-
-            modelBuilder.Entity<Movie>()
-                .HasIndex(m => m.Title)
-                .IsUnique(); // Ensure title is unique
-
-            modelBuilder.Entity<Movie>()
-                .Property(m => m.Title)
-                .IsRequired();
-
             // Configure Rating entity
             modelBuilder.Entity<Rating>()
                 .HasKey(r => r.Id);
@@ -68,6 +67,23 @@ namespace DataAceess.Data
             .WithMany()
             .HasForeignKey(r => r.Movie)
             .HasPrincipalKey(u => u.Title);
+
+
+            modelBuilder.Entity<Review>()
+                .HasKey(re => re.Id);
+            modelBuilder.Entity<Review>()
+                .HasOne(re => re.user)
+                .WithMany()
+                .HasForeignKey(re => re.User)
+                .HasPrincipalKey(u => u.Email);
+
+            modelBuilder.Entity<Review>()
+                .HasKey(re => re.Id);
+            modelBuilder.Entity<Review>()
+                .HasOne(re => re.movie)
+                .WithMany()
+                .HasForeignKey(re => re.Movie)
+                .HasPrincipalKey(m => m.Title);
         }
     }
 }

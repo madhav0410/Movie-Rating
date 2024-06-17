@@ -10,9 +10,9 @@ namespace BusinessLogic.Interface
 {
     public interface IAdmin
     {
-        public bool AddMovie(Movie model);
-        public bool UpdateMovie(Movie model);
-        public bool DeleteMovie(int id);
+        public Task<bool> AddMovie(Movie model);
+        public Task<bool> UpdateMovie(Movie model);
+        public Task<bool> DeleteMovie(int id);
         
     }
 }

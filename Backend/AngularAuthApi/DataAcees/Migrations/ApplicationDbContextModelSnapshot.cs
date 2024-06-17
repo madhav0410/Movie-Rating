@@ -98,6 +98,35 @@ namespace DataAceess.Migrations
                     b.ToTable("Ratings");
                 });
 
+            modelBuilder.Entity("DataAceess.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Movie")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MovieReview")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("User")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Movie");
+
+                    b.HasIndex("User");
+
+                    b.ToTable("Review");
+                });
+
             modelBuilder.Entity("DataAceess.Models.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -182,6 +211,27 @@ namespace DataAceess.Migrations
                     b.Navigation("User");
 
                     b.Navigation("movie");
+                });
+
+            modelBuilder.Entity("DataAceess.Models.Review", b =>
+                {
+                    b.HasOne("DataAceess.Models.Movie", "movie")
+                        .WithMany()
+                        .HasForeignKey("Movie")
+                        .HasPrincipalKey("Title")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAceess.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("User")
+                        .HasPrincipalKey("Email")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("movie");
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("DataAceess.Models.User", b =>

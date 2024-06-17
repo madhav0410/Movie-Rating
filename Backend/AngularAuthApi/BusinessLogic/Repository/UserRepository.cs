@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Interface;
 using DataAceess.Data;
 using DataAceess.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,20 +18,20 @@ namespace BusinessLogic.Repository
             _context = context;
         }
 
-        public Rating GetUserRating(string email, string title)
+        public async Task<Rating> GetUserRating(string email, string title)
         {
-           var rating = _context.Ratings.FirstOrDefault(i => i.UserEmail == email && i.Movie == title);
-           return rating;
+            var rating = await _context.Ratings.FirstOrDefaultAsync(i => i.UserEmail == email && i.Movie == title);
+            return rating;
         }
 
-        public void UpdateUserRating(string email, string title, int rating)
+        public async Task UpdateUserRating(string email, string title, int rating)
         {
-            var userRating = _context.Ratings.FirstOrDefault(i => i.UserEmail == email && i.Movie == title);
-            if(userRating != null)
+            var userRating = await _context.Ratings.FirstOrDefaultAsync(i => i.UserEmail == email && i.Movie == title);
+
+            if (userRating != null)
             {
                 userRating.MovieRating = rating;
                 _context.Ratings.Update(userRating);
-                _context.SaveChanges();
             }
             else
             {
@@ -41,8 +42,10 @@ namespace BusinessLogic.Repository
                     MovieRating = rating
                 };
                 _context.Ratings.Add(newRating);
-                _context.SaveChanges();
             }
+            await _context.SaveChangesAsync();
+
+            
         }
     }
 }

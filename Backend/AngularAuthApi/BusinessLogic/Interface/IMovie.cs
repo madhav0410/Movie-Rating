@@ -9,8 +9,8 @@ namespace BusinessLogic.Interface
 {
     public interface IMovie
     {
-        public List<Movie> GetAllMovies(List<string> selectedGenres);
-        public Movie GetMovieByTitle(string title);
-        public double GetAvgRating(string title);
+        public Task<List<Movie>> GetAllMovies(List<string> selectedGenres);
+        public Task<Movie> GetMovieByTitle(string title);
+        public Task<double> GetAvgRating(string title);
     }
 }

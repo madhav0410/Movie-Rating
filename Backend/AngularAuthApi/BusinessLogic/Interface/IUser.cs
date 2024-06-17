@@ -9,7 +9,7 @@ namespace BusinessLogic.Interface
 {
     public interface IUser
     {
-        public void UpdateUserRating(string email, string title,  int rating);
-        public Rating GetUserRating(string email, string title);
+        public Task UpdateUserRating(string email, string title,  int rating);
+        public Task<Rating> GetUserRating(string email, string title);
     }
 }

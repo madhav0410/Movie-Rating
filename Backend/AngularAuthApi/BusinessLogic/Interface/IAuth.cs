@@ -10,8 +10,8 @@ namespace BusinessLogic.Interface
 {
     public interface IAuth
     {
-        public User Login(LoginDto loginDTO);
-        public bool AddUser(UserDto user);
-        public bool UpdatePassword(string email, ResetPasswordDto resetPasswordDTO);
+        public Task<bool> AddUser(UserDto user);
+        public Task<User> Login(LoginDto loginDTO);
+        public Task<bool> UpdatePassword(string email, ResetPasswordDto resetPasswordDTO);
     }
 }

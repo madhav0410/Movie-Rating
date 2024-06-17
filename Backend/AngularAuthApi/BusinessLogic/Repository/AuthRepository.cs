@@ -2,6 +2,7 @@
 using DataAceess.Data;
 using DataAceess.Dto;
 using DataAceess.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,9 @@ namespace BusinessLogic.Repository
         {
             _context = context;
         }
-        public bool AddUser(UserDto userDTO)
+        public async Task<bool> AddUser(UserDto userDTO)
         {
-            User isUserExist = _context.Users.FirstOrDefault(i => i.Email == userDTO.Email);
+            var isUserExist = await _context.Users.FirstOrDefaultAsync(i => i.Email == userDTO.Email);
             if (isUserExist != null)
             {
                 return false;
@@ -36,37 +37,41 @@ namespace BusinessLogic.Repository
                 Role = 2,
                 CreatedDate = DateTime.UtcNow
             };
-            _context.Users.Add(user);
-            _context.SaveChanges();
+
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
             return true;
-
         }
 
-        public User Login(LoginDto loginDTO)
+
+        public async Task<User> Login(LoginDto loginDTO)
         {
-            var user = _context.Users.FirstOrDefault(i => i.Email == loginDTO.Email);
-            if (user != null)
+            var user = await _context.Users.FirstOrDefaultAsync(i => i.Email == loginDTO.Email);
+            if (user != null && BCrypt.Net.BCrypt.Verify(loginDTO.Password, user.Password))
             {
-                if (BCrypt.Net.BCrypt.Verify(loginDTO.Password, user.Password))
-                {
-                    return user;
-                }
+                return user;
             }
-            return null;
+            return null; 
         }
 
-        public bool UpdatePassword(string email, ResetPasswordDto resetPasswordDTO)
+
+        public async Task<bool> UpdatePassword(string email, ResetPasswordDto resetPasswordDTO)
         {
-            var user = _context.Users.FirstOrDefault(i => i.Email == email);
-            if (BCrypt.Net.BCrypt.Verify(resetPasswordDTO.Password, user.Password))
+            var user = await _context.Users.FirstOrDefaultAsync(i => i.Email == email);
+            if (user == null)
             {
                 return false;
             }
+            if (BCrypt.Net.BCrypt.Verify(resetPasswordDTO.Password, user.Password))
+            {
+                return false; 
+            }
             user.Password = BCrypt.Net.BCrypt.HashPassword(resetPasswordDTO.Password, 12);
             _context.Users.Update(user);
-            _context.SaveChanges();
-            return true;
+            await _context.SaveChangesAsync();
 
+            return true;
         }
+
     }
 }

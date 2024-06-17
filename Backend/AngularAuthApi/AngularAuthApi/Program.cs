@@ -1,3 +1,4 @@
+using AngularAuthApi.Hubs;
 using BusinessLogic.Interface;
 using BusinessLogic.Repository;
 using DataAceess.Data;
@@ -53,6 +54,7 @@ builder.Services.AddTransient<IUtilities,UitiliesRepository>();
 builder.Services.AddTransient<IAdmin,AdminRepository>();
 builder.Services.AddTransient<IMovie,MovieRepository>();   
 builder.Services.AddTransient<IUser,UserRepository>();
+//builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -67,4 +69,5 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+//app.MapHub<CommentHub>("/commentHub");
 app.Run();

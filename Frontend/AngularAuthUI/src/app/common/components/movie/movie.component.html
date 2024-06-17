@@ -41,6 +41,15 @@
         <app-star-rating [starCount]="10" [selectedStar]="userRating" [isLoggedIn]="isLoggedIn" (ratingUpdated)="onRatingChange($event)"></app-star-rating>
       </div>
     </mat-card-content>
+    <!-- <form (ngSubmit)="onSubmitComment()" class="mt-2">
+      <mat-form-field>
+        <mat-label>Textarea</mat-label>
+        <textarea matInput [(ngModel)]="newCommentText" name="review"></textarea>
+      </mat-form-field>
+      <button mat-flat-button color="primary" type="submit">Submit</button>
+    </form>  -->
+     
+   
   </mat-card>
   }
 </div>

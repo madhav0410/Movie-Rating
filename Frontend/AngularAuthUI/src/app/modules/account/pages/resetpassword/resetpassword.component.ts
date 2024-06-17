@@ -29,7 +29,7 @@ export class ResetpasswordComponent {
 
   resetPasswordForm = new FormGroup<ResetPasswordForm>({
     password: new FormControl('', [Validators.required, Validators.pattern(/^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/)]),
-    confirmPassword: new FormControl('', [Validators.required, this.passwordMatchValidator])
+    confirmPassword: new FormControl('', [Validators.required])
   })
 
   constructor(
@@ -58,7 +58,7 @@ export class ResetpasswordComponent {
       this.authService.resetPassword(this.email, this.time, info).subscribe({
         next: (res) => {
           this.toastr.success(res.message);
-          this.router.navigate(['/']);
+          this.router.navigate(['/account/login']);
         },
         error: (err) => {
           this.toastr.error(err?.error.message)

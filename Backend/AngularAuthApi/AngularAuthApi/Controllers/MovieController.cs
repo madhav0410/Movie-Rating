@@ -10,28 +10,36 @@ namespace AngularAuthApi.Controllers
 {
     public class MovieController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly IMovie _movie;
         public MovieController(ApplicationDbContext context, IMovie movie)
         {
-            _context = context;
             _movie = movie;
         }
 
         /// <summary>
-        /// Gets a movies by selected genres
+        /// Retrieves a paginated list of movies based on specified page, page size, and genres.
         /// </summary>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">No movies listed on per page</param>
-        /// <param name="genres">The Genres of the movies to retrive</param>
-        /// <returns>The list of movies with specified genres</returns>
+        /// <param name="page">The page number of the movie list to retrieve.</param>
+        /// <param name="pageSize">The number of movies per page.</param>
+        /// <param name="genres">A comma-separated string of genres to filter the movies by.</param>
+        /// <returns>Returns an ActionResult with a ResponseDto<PaginatedMoviesDto> containing the paginated list of movies.</returns>
+        /// <remarks>
+        /// Splits the genres string into a list of selected genres. If genres is null, an empty list is used.
+        /// Retrieves all movies asynchronously based on selected genres using _movie.GetAllMovies method.
+        /// Calculates total items and total pages for pagination based on the retrieved movie list and page size.
+        /// Retrieves a paginated subset of movies based on page and page size from the retrieved movie list.
+        /// Constructs a PaginatedMoviesDto object containing total pages and paginated movie list.
+        /// Returns an Ok response with success status and the PaginatedMoviesDto upon successful retrieval.
+        /// </remarks>
         [HttpGet, Route("/api/movie/getallmovies", Name = "GetMovies")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<ResponseDto<PaginatedMoviesDto>> GetMovies(int page, int pageSize, string genres)
+        public async Task<ActionResult<ResponseDto<PaginatedMoviesDto>>> GetMovies(int page, int pageSize, string genres)
         {
             ResponseDto<PaginatedMoviesDto> response = new ResponseDto<PaginatedMoviesDto>();
             var selectedGenres = genres?.Split(',').ToList() ?? new List<string>();
-            List<Movie> movieList = _movie.GetAllMovies(selectedGenres);
+
+            List<Movie> movieList = await _movie.GetAllMovies(selectedGenres);
+
             int totalItems = movieList.Count();
             int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
             var paginatedList = movieList.Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -49,33 +57,39 @@ namespace AngularAuthApi.Controllers
 
 
         /// <summary>
-        /// Gets a movie by title
+        /// Retrieves a movie by its title.
         /// </summary>
-        /// <param name="title">The title of the movie to retrive</param>
-        /// <returns>The movie with the specified title</returns>
-        /// <response code="200">Returns the movie.</response>
-        /// <response code="400">If title is null</response>
-        /// <response code="404">If the movie is not found.</response>
+        /// <param name="title">The title of the movie to retrieve.</param>
+        /// <returns>Returns an ActionResult with a ResponseDto<Movie> containing the retrieved movie.</returns>
+        /// <remarks>
+        /// Checks if the provided title is null or empty; if so, throws an exception with message "Something went wrong".
+        /// Retrieves the movie asynchronously by its title using _movie.GetMovieByTitle method.
+        /// If the movie is not found (null), returns a NotFound response with message "Movie not found".
+        /// Returns an Ok response with success status and the retrieved movie upon successful retrieval.
+        /// Handles exceptions by returning a BadRequest response with the exception message.
+        /// </remarks>
         [HttpGet, Route("/api/movie/getmovie", Name = "GetMovie")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<ResponseDto<Movie>> GetMovie([FromQuery] string title)
+        public async Task<ActionResult<ResponseDto<Movie>>> GetMovie([FromQuery] string title)
         {
             ResponseDto<Movie> response = new ResponseDto<Movie>();
             try
             {
-                if (title == null)
+                if (string.IsNullOrEmpty(title))
                 {
                     throw new Exception("Something went wrong");
                 }
-                var movie = _movie.GetMovieByTitle(title);
+
+                var movie = await _movie.GetMovieByTitle(title);
                 if (movie == null)
                 {
                     response.Success = false;
                     response.Message = "Movie not found";
                     return NotFound(response);
                 }
+
                 response.Success = true;
                 response.Data = movie;
                 return Ok(response);
@@ -87,5 +101,6 @@ namespace AngularAuthApi.Controllers
                 return BadRequest(response);
             }
         }
+
     }
 }

@@ -70,7 +70,7 @@ namespace BusinessLogic.Repository
         }
 
 
-        public void SendMail(string toEmail, string subject, string emailbody)
+        public async Task SendMail(string toEmail, string subject, string emailbody)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace BusinessLogic.Repository
                         mailMessage.Subject = subject;
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = emailbody;
-                        smtpClient.Send(mailMessage);
+                        await Task.Run(() => smtpClient.Send(mailMessage));
                     }
                 }
             }

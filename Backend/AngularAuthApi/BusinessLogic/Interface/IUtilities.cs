@@ -10,6 +10,6 @@ namespace BusinessLogic.Interface
     {
         public string EncryptEmail(string plainBytes, string Key);
         public string DecryptEmail(string encryptedEmail, string Key);
-        public void SendMail(string toEmail, string subject, string emailbody);
+        public Task SendMail(string toEmail, string subject, string emailbody);
     }
 }

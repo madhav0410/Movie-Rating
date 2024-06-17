@@ -40,6 +40,6 @@ export const routes: Routes = [
     ]
   },
   {
-    path: '**', redirectTo: 'account', pathMatch: 'full'
+    path: '**', redirectTo: 'user', pathMatch: 'full'
   }
 ];

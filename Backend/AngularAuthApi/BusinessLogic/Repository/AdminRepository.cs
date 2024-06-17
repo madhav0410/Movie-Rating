@@ -2,6 +2,7 @@
 using DataAceess.Data;
 using DataAceess.Dto;
 using DataAceess.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,10 +19,10 @@ namespace BusinessLogic.Repository
         {
             _context = context;
         }
-        public bool AddMovie(Movie model)
+        public async Task<bool> AddMovie(Movie model)
         {
-            var isMovieAdded = _context.Movies.FirstOrDefault(i => i.Title == model.Title);
-            if(isMovieAdded != null)
+            var isMovieAdded = await _context.Movies.FirstOrDefaultAsync(i => i.Title == model.Title);
+            if (isMovieAdded != null)
             {
                 return false;
             }
@@ -38,45 +39,48 @@ namespace BusinessLogic.Repository
                     ReleaseDate = model.ReleaseDate.Split('T')[0],
                     Trailer = model.Trailer,
                 };
-                _context.Movies.Add(movie);
-                _context.SaveChanges();
+                await _context.Movies.AddAsync(movie);
+                await _context.SaveChangesAsync();
                 return true;
             }
-
         }
 
-        public bool DeleteMovie(int id)
+
+        public async Task<bool> DeleteMovie(int id)
         {
-            var isMovieFound = _context.Movies.FirstOrDefault(i => i.Id == id);
-            if (isMovieFound == null)
+            var movie = await _context.Movies.FirstOrDefaultAsync(i => i.Id == id);
+            if (movie == null)
             {
                 return false;
             }
-            Movie movie = _context.Movies.FirstOrDefault(x => x.Id == id);
+
             _context.Movies.Remove(movie);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public bool UpdateMovie(Movie model)
+
+        public async Task<bool> UpdateMovie(Movie model)
         {
-            var isMovieFound = _context.Movies.FirstOrDefault(i => i.Id == model.Id);
-            if (isMovieFound == null)
+            var existingMovie = await _context.Movies.FirstOrDefaultAsync(i => i.Id == model.Id);
+            if (existingMovie == null)
             {
                 return false;
             }
-            Movie movie = _context.Movies.FirstOrDefault(x => x.Id == model.Id);
-            movie.Title = model.Title;
-            movie.Cast = model.Cast;
-            movie.Director = model.Director;
-            movie.Plot = model.Plot;
-            movie.Genre = model.Genre;
-            movie.Poster = model.Poster;
-            movie.ReleaseDate = model.ReleaseDate.Split('T')[0];
-            movie.Trailer = model.Trailer;
-            _context.Movies.Update(movie);
-            _context.SaveChanges();
+
+            existingMovie.Title = model.Title;
+            existingMovie.Cast = model.Cast;
+            existingMovie.Director = model.Director;
+            existingMovie.Plot = model.Plot;
+            existingMovie.Genre = model.Genre;
+            existingMovie.Poster = model.Poster;
+            existingMovie.ReleaseDate = model.ReleaseDate.Split('T')[0];
+            existingMovie.Trailer = model.Trailer;
+
+            _context.Movies.Update(existingMovie);
+            await _context.SaveChangesAsync();
             return true;
         }
+
     }
 }

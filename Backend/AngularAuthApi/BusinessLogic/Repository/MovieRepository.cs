@@ -17,26 +17,29 @@ namespace BusinessLogic.Repository
         {
             _context = context;
         }
-        public List<Movie> GetAllMovies(List<string> selectedGenres)
+        public async Task<List<Movie>> GetAllMovies(List<string> selectedGenres)
         {
-            List<Movie> movieList = new List<Movie>();
-            if(selectedGenres.Count == 0)
+            List<Movie> movieList;
+            if (selectedGenres.Count == 0)
             {
-                movieList = _context.Movies.OrderBy(i => i.Id).ToList();
-                return movieList;
+                movieList = await _context.Movies.OrderBy(i => i.Id).ToListAsync();
             }
             else
             {
-                movieList = _context.Movies.Where(movie => selectedGenres.All(genre => movie.Genre.Contains(genre))).OrderBy(i => i.Id).ToList();
-                return movieList;
+                movieList = await _context.Movies
+                    .Where(movie => selectedGenres.All(genre => movie.Genre.Contains(genre)))
+                    .OrderBy(i => i.Id)
+                    .ToListAsync();
             }
 
+            return movieList;
         }
 
-        public double GetAvgRating(string title)
+
+        public async Task<double> GetAvgRating(string title)
         {
-            var count = _context.Ratings.Where(i => i.Movie == title).Count();
-            var list = _context.Ratings.Where(i => i.Movie == title).ToList();
+            var count = await _context.Ratings.Where(i => i.Movie == title).CountAsync();
+            var list = await _context.Ratings.Where(i => i.Movie == title).ToListAsync();
             double avgRating = 0;
             foreach (var record in list) {
                 avgRating += record.MovieRating;
@@ -45,10 +48,10 @@ namespace BusinessLogic.Repository
             return avgRating;
         }
 
-        public Movie GetMovieByTitle(string title)
+        public async Task<Movie> GetMovieByTitle(string title)
         {
-            var movie = _context.Movies.First(i => i.Title == title);
-            return movie;
+            return await _context.Movies.FirstOrDefaultAsync(movie => movie.Title == title);
         }
+
     }
 }
