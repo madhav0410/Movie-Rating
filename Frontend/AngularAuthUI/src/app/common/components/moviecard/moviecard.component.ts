@@ -63,7 +63,5 @@ export class MoviecardComponent {
         }
       })
     }
-  }
-
-  
+  } 
 }

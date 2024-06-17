@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CpUFumIeprgE2y89ihss+bHBEGHWLAcdHB/I3E3Ki29EptfQSsypMtzkD1wNYQL8fapaesLJ77F8AlbEaBshBw==",
+  "dgSpecHash": "QOCs94oR58EY6ajV4ChGKLB/efLdPI0ocCCEaReW7vj+kVQ7N/i73V6Xrn3gb780rRB17qdLHfhJ+I1VT7UfeA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\pct51\\source\\repos\\AngularAuthApi\\BusinessLogic\\BusinessLogic.csproj",
+  "projectFilePath": "C:\\Users\\pct51\\Desktop\\MovieRating\\Backend\\AngularAuthApi\\BusinessLogic\\BusinessLogic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pct51\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\pct51\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

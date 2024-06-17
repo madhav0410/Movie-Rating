@@ -18,7 +18,13 @@ namespace AngularAuthApi.Controllers
             _movie = movie;
         }
 
-
+        /// <summary>
+        /// Gets a movies by selected genres
+        /// </summary>
+        /// <param name="page">Page number</param>
+        /// <param name="pageSize">No movies listed on per page</param>
+        /// <param name="genres">The Genres of the movies to retrive</param>
+        /// <returns>The list of movies with specified genres</returns>
         [HttpGet, Route("/api/movie/getallmovies", Name = "GetMovies")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<ResponseDto<PaginatedMoviesDto>> GetMovies(int page, int pageSize, string genres)
@@ -42,6 +48,14 @@ namespace AngularAuthApi.Controllers
         }
 
 
+        /// <summary>
+        /// Gets a movie by title
+        /// </summary>
+        /// <param name="title">The title of the movie to retrive</param>
+        /// <returns>The movie with the specified title</returns>
+        /// <response code="200">Returns the movie.</response>
+        /// <response code="400">If title is null</response>
+        /// <response code="404">If the movie is not found.</response>
         [HttpGet, Route("/api/movie/getmovie", Name = "GetMovie")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

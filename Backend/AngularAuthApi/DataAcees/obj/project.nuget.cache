@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Og+ddUEz/V1A5AV1XA2rRLXUAyf95Tp2/kJY24dG2NnvXNEZB5cqufpM79lwycbobonX5YXCP9HmnIAHeTpi6Q==",
+  "dgSpecHash": "yMoT5jjShwi+dEu/NGHSfTerstGliwdEDbzeCUf89Xls2+ohUmb6QVhgq67J/sU4QCOZ54Qg9if/4jxBSXpAVA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\pct51\\source\\repos\\AngularAuthApi\\DataAcees\\DataAceess.csproj",
+  "projectFilePath": "C:\\Users\\pct51\\Desktop\\MovieRating\\Backend\\AngularAuthApi\\DataAcees\\DataAceess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pct51\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\pct51\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

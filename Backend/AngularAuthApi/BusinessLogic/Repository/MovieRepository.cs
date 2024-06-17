@@ -27,7 +27,7 @@ namespace BusinessLogic.Repository
             }
             else
             {
-                movieList = _context.Movies.Where(movie => selectedGenres.All(genre => movie.Genre.Contains(genre))).ToList();
+                movieList = _context.Movies.Where(movie => selectedGenres.All(genre => movie.Genre.Contains(genre))).OrderBy(i => i.Id).ToList();
                 return movieList;
             }
 

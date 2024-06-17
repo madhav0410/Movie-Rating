@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pct51\\source\\repos\\AngularAuthApi\\DataAcees\\DataAceess.csproj": {}
+    "C:\\Users\\pct51\\Desktop\\MovieRating\\Backend\\AngularAuthApi\\DataAcees\\DataAceess.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pct51\\source\\repos\\AngularAuthApi\\DataAcees\\DataAceess.csproj": {
+    "C:\\Users\\pct51\\Desktop\\MovieRating\\Backend\\AngularAuthApi\\DataAcees\\DataAceess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pct51\\source\\repos\\AngularAuthApi\\DataAcees\\DataAceess.csproj",
+        "projectUniqueName": "C:\\Users\\pct51\\Desktop\\MovieRating\\Backend\\AngularAuthApi\\DataAcees\\DataAceess.csproj",
         "projectName": "DataAceess",
-        "projectPath": "C:\\Users\\pct51\\source\\repos\\AngularAuthApi\\DataAcees\\DataAceess.csproj",
+        "projectPath": "C:\\Users\\pct51\\Desktop\\MovieRating\\Backend\\AngularAuthApi\\DataAcees\\DataAceess.csproj",
         "packagesPath": "C:\\Users\\pct51\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pct51\\source\\repos\\AngularAuthApi\\DataAcees\\obj\\",
+        "outputPath": "C:\\Users\\pct51\\Desktop\\MovieRating\\Backend\\AngularAuthApi\\DataAcees\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pct51\\AppData\\Roaming\\NuGet\\NuGet.Config",

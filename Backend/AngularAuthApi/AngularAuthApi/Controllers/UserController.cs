@@ -56,12 +56,12 @@ namespace AngularAuthApi.Controllers
 
         }
 
+
         [Authorize]
         [HttpGet, Route("/api/user/get-user-rating", Name = "GetUserRating")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public ActionResult<ResponseDto<int>> GetUserRating(string email, string title)
         {
             ResponseDto<int> response = new ResponseDto<int>();
@@ -94,7 +94,6 @@ namespace AngularAuthApi.Controllers
         [HttpPost, Route("/api/user/update-rating", Name = "UpdateRating")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
         public ActionResult<ResponseDto<NoContentResult>> UpdateRating(string email,string title,int rating) 
         {
             ResponseDto<NoContentResult> response = new ResponseDto<NoContentResult>();
