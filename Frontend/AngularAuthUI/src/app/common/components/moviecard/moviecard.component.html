@@ -8,9 +8,19 @@
             @if(role === "1" && hover){
                 <mat-card-actions  class="card-actions gap-2">
                     <mat-icon class="bg-white rounded-3" color="primary" (click)="editMovie(movie)">edit</mat-icon>  
-                    <mat-icon class="bg-white rounded-3" color="warn" (click)="deleteMovie(movie)">delete</mat-icon>
+                    <mat-icon class="bg-white rounded-3" color="warn" (click)="openDialog()">delete</mat-icon>
                 </mat-card-actions>
             }  
         }
     </mat-card-content>
 </mat-card>
+<ng-template #confirmationDialog>
+    <h2 mat-dialog-title>Delet Movie</h2>
+    <mat-dialog-content>
+      <p>Would you like to delete this movie.</p>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close cdkFocusInitial color="warn" (click)="deleteMovie(movie)">Delete</button>
+      <button mat-button color="basic" (click)="closeDialog()">Close</button>
+    </mat-dialog-actions>
+</ng-template>

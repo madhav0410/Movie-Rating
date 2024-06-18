@@ -46,6 +46,10 @@ namespace AngularAuthApi.Controllers
             ResponseDto<NoContentResult> response = new ResponseDto<NoContentResult>();
             try
             {
+                if(!ModelState.IsValid)
+                {
+                    return BadRequest("Model State is Invaild");
+                }
                 if (userDTO == null)
                 {
                     throw new Exception("Something went wrong");
@@ -94,6 +98,10 @@ namespace AngularAuthApi.Controllers
             ResponseDto<string> response = new ResponseDto<string>();
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Model State is Invaild");
+                }
                 if (loginDTO == null)
                 {
                     throw new Exception("Something went wrong");
@@ -104,7 +112,7 @@ namespace AngularAuthApi.Controllers
                 if (user == null)
                 {
                     response.Success = false;
-                    response.Message = "User Not Found";
+                    response.Message = "Please enter valid crendentials";
                     return NotFound(response);
                 }
 
@@ -200,6 +208,11 @@ namespace AngularAuthApi.Controllers
 
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Model State is Invaild");
+                }
+
                 DateTime time1 = DateTime.Parse(time);
                 TimeSpan diff = DateTime.Now - time1;
 

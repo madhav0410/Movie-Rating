@@ -54,7 +54,9 @@ namespace DataAceess.Data
             .HasOne(r => r.User)
             .WithMany()
             .HasForeignKey(r => r.UserEmail)
-            .HasPrincipalKey(u => u.Email);
+            .HasPrincipalKey(u => u.Email)
+            .OnDelete(DeleteBehavior.Cascade);
+
 
 
             // Configure Rating entity
@@ -66,7 +68,9 @@ namespace DataAceess.Data
             .HasOne(r => r.movie)
             .WithMany()
             .HasForeignKey(r => r.Movie)
-            .HasPrincipalKey(u => u.Title);
+            .HasPrincipalKey(u => u.Title)
+            .OnDelete(DeleteBehavior.Cascade);
+
 
 
             modelBuilder.Entity<Review>()

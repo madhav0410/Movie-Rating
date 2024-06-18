@@ -12,14 +12,23 @@ namespace DataAceess.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Required]
         public int Id { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public string[] Cast {  get; set; }
+        [Required]
         public string Director { get; set; }
+        [Required]
         public string Plot { get; set; }
+        [Required]
         public string ReleaseDate { get; set; }
+        [Required]
         public string[] Genre { get; set; }
+        [Required]
         public string Poster { get; set; }
+        [Required]
         public string Trailer { get; set; }
     }
 }

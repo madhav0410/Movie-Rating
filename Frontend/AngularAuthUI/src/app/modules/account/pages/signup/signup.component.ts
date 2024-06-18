@@ -63,7 +63,7 @@ export class SignupComponent {
     this.authService.signUp(user).subscribe({
       next: (res) => {
         this.toastr.success(res.message)
-        this.router.navigate(['/'])
+        this.router.navigate(['/account/login'])
       },
       error: (err) => {
         this.toastr.error(err?.error.message)

@@ -45,6 +45,7 @@ namespace BusinessLogic.Repository
                 avgRating += record.MovieRating;
             }
             avgRating = avgRating / count;
+            avgRating = Math.Round(avgRating, 1);
             return avgRating;
         }
 

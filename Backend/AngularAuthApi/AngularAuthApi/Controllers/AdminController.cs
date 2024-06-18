@@ -40,6 +40,10 @@ namespace AngularAuthApi.Controllers
             ResponseDto<NoContentResult> response = new ResponseDto<NoContentResult>();
             try
             {
+                if(!ModelState.IsValid) 
+                { 
+                    return BadRequest("Model State is Invaild");
+                }
                 if (model == null)
                 {
                     throw new Exception("Something went wrong");
@@ -90,6 +94,10 @@ namespace AngularAuthApi.Controllers
             ResponseDto<NoContentResult> response = new ResponseDto<NoContentResult>();
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Model State is Invaild");
+                }
                 if (model == null)
                 {
                     throw new Exception("Something went wrong");
