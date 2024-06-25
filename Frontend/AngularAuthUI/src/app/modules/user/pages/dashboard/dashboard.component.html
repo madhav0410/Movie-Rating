@@ -1,4 +1,7 @@
-<div class="d-flex justify-content-end px-4 mt-2">
+<div class="d-flex justify-content-between px-4 mt-2">
+    <mat-form-field class="w-25">
+      <input matInput placeholder="Search Movie..." name= "search" [(ngModel)]= "searchQuery" (keyup)="onKeyup($event)">
+    </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Filter By Genres</mat-label>
         <mat-select [(ngModel)]="selectedGenres" multiple (selectionChange)="filterMovies()">

@@ -1,3 +1,11 @@
 .navbar{
     height: 10vh;
 }
+.mat-mdc-button:not(:disabled) {
+    color: white;
+    font-size: 1rem;
+}
+.mat-mdc-button:hover{
+   background-color: white;
+   color: black;
+}

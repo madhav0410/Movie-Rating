@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AngularAuthApi.Controllers
 {
+    [Authorize(Roles = "1")]
     public class AdminController : Controller
     {
        
@@ -31,7 +32,7 @@ namespace AngularAuthApi.Controllers
         ///    - If the movie is successfully added, returns an <see cref="Ok"/> response with a success message.
         /// 5. Catches and handles any exceptions, returning a <see cref="BadRequest"/> response with the exception message.
         /// </remarks>
-        [Authorize]
+        
         [HttpPost, Route("/api/admin/addmovie", Name = "AddMovie")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -84,7 +85,7 @@ namespace AngularAuthApi.Controllers
         ///    - If the movie is successfully updated, returns an <see cref="Ok"/> response with a success message.
         /// 5. Catches and handles any exceptions, returning a <see cref="BadRequest"/> response with the exception message.
         /// </remarks>
-        [Authorize]
+       
         [HttpPost, Route("/api/admin/updatemovie", Name = "UpdateMovie")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -138,7 +139,7 @@ namespace AngularAuthApi.Controllers
         ///    - If the movie is successfully deleted, returns an <see cref="Ok"/> response with a success message.
         /// 5. Catches and handles any exceptions, returning a <see cref="BadRequest"/> response with the exception message.
         /// </remarks>
-        [Authorize]
+   
         [HttpDelete, Route("/api/admin/deletemovie", Name = "DeleteMovie")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

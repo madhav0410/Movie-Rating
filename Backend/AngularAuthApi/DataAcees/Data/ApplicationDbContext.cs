@@ -71,8 +71,6 @@ namespace DataAceess.Data
             .HasPrincipalKey(u => u.Title)
             .OnDelete(DeleteBehavior.Cascade);
 
-
-
             modelBuilder.Entity<Review>()
                 .HasKey(re => re.Id);
             modelBuilder.Entity<Review>()

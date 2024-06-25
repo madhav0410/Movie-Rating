@@ -33,26 +33,42 @@ namespace AngularAuthApi.Controllers
         /// </remarks>
         [HttpGet, Route("/api/movie/getallmovies", Name = "GetMovies")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseDto<PaginatedMoviesDto>>> GetMovies(int page, int pageSize, string genres)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<ResponseDto<PaginatedMoviesDto>>> GetMovies(int page, int pageSize, string genres,string searchQuery)
         {
             ResponseDto<PaginatedMoviesDto> response = new ResponseDto<PaginatedMoviesDto>();
-            var selectedGenres = genres?.Split(',').ToList() ?? new List<string>();
+            try
+            {   
+                if(page < 1 || pageSize < 1)
+                {
+                    throw new Exception("Something went wrong");
+                }
 
-            List<Movie> movieList = await _movie.GetAllMovies(selectedGenres);
+                var selectedGenres = genres?.Split(',').ToList() ?? new List<string>();
 
-            int totalItems = movieList.Count();
-            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
-            var paginatedList = movieList.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                List<Movie> movieList = await _movie.GetAllMovies(selectedGenres, searchQuery);
 
-            PaginatedMoviesDto paginatedMoviesDto = new PaginatedMoviesDto
+                int totalItems = movieList.Count();
+                int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+                var paginatedList = movieList.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+                PaginatedMoviesDto paginatedMoviesDto = new PaginatedMoviesDto
+                {
+                    TotalPages = totalPages,
+                    PaginatedList = paginatedList
+                };
+
+                response.Success = true;
+                response.Data = paginatedMoviesDto;
+                return Ok(response);
+            }
+            catch (Exception ex)
             {
-                TotalPages = totalPages,
-                PaginatedList = paginatedList
-            };
-
-            response.Success = true;
-            response.Data = paginatedMoviesDto;
-            return Ok(response);
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+            
         }
 
 

@@ -11,7 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { SafeUrlPipe } from '../../safe-url.pipe';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SignalrService } from '../../service/signalr.service';
 import {MatInput} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,8 +31,6 @@ export class MovieComponent implements OnInit{
   avgRating: number = 0;
   title: string = '';
   email: string = '';
-  // comments: string[] = [];
-  // newCommentText: string = '';
   isLoggedIn: boolean = this.authService.isLoggedIn();
 
   constructor(
@@ -41,7 +38,6 @@ export class MovieComponent implements OnInit{
     private movieService: MovieService,
     private userService: UserService, 
     private route: ActivatedRoute,
-    private signalRService: SignalrService
   ){}
    
   ngOnInit(): void {
@@ -61,10 +57,6 @@ export class MovieComponent implements OnInit{
         this.UserRating();
       }
       this.AvgRating();
-      // this.signalRService.startConnection();
-    //   this.signalRService.addReceiveCommentListener((title, comment) => {
-    //   this.comments.push(comment); // Update comments array with received comment
-    // });
     }
 
   }
@@ -85,17 +77,12 @@ export class MovieComponent implements OnInit{
     }
   }
 
-  // public  onSubmitComment() {
-  //   if (this.newCommentText.trim()) {
-  //     this.signalRService.invokeAddComment(this.title, this.email, this.newCommentText);
-  //     this.newCommentText = ''; // Clear input after submission
-  //   }
-  // }
-
   private UserRating(): void{
     this.userService.getUserRating(this.email,this.title).subscribe({
       next: (res) => {
-        this.userRating = res.data;
+        if(res.data){
+          this.userRating = res.data;
+        }
       },
       error: (err) => {
         console.log(err?.error.message);        
@@ -106,8 +93,10 @@ export class MovieComponent implements OnInit{
   private AvgRating(): void{
     this.userService.getAvgRating(this.title).subscribe({
       next: (res) => {
-        this.userService.avgRating.next(res.data);
-        this.avgRating = res.data;
+        if(res.data){
+          this.userService.avgRating.next(res.data);
+          this.avgRating = res.data;
+        } 
       },
       error: (err) => {
         console.log(err?.error.message);        

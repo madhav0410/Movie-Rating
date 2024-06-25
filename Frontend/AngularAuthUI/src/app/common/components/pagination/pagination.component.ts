@@ -9,23 +9,18 @@ import { CommonModule } from '@angular/common';
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
 })
-export class PaginationComponent implements OnChanges{
+export class PaginationComponent{
   @Input() pageSize!: number;
   @Input() totalPages!: number;
   @Output() changedPage = new EventEmitter<number>();
   selectedGenres: string[] = []
 
-  currentPage: number = 1;
+  currentPage: number = this.movieService.currentPage.getValue();
  
 
   constructor(private movieService: MovieService) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes?.['totalPages']) {
-      this.currentPage = 1; // Reset to first page when page size changes
-    }
-  }
-
+ 
   private goToPage(page: number): void {
     this.currentPage = page;
     this.changedPage.emit(this.currentPage);

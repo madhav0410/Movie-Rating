@@ -14,13 +14,15 @@ export class MovieService {
   constructor(private httpClient: HttpClient) { }
 
   public movieList: BehaviorSubject<Movie[]> = new BehaviorSubject<Movie[]>([]);
+  public currentPage: BehaviorSubject<number> = new BehaviorSubject<number>(1);
 
-  public getMovies = (page:number,pageSize:number,selectedGenres: string[]): Observable<Response<PaginatedMovies>> => {
+  public getMovies = (page:number,pageSize:number,selectedGenres: string[],searchQuery: string): Observable<Response<PaginatedMovies>> => {
 
     let params = new HttpParams()
       .set('page', page.toString())
       .set('pageSize', pageSize.toString())
-      .set('genres', selectedGenres.join(','));
+      .set('genres', selectedGenres.join(','))
+      .set('searchQuery', searchQuery);
 
     return this.httpClient.get<Response<PaginatedMovies>>(`${this.Url}/movie/getallmovies`, { params })
   } 

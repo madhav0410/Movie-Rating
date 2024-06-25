@@ -44,6 +44,7 @@ export class AddmovieComponent implements OnInit {
   genreList: string[] = []
   allGenre: string[] = ['Action', 'Thriller','Crime', 'Comedy', 'Suspense', 'Biography', 'Horror', 'Drama', 'Musical', 'Mystery', 'Sci-fi', 'Fantasy', 'Romance', 'Adventure'];
   selectedGenres: string[] = []
+  searchQuery: string = '';
 
   MovieForm!: FormGroup<MovieForm>
 
@@ -55,21 +56,27 @@ export class AddmovieComponent implements OnInit {
   ) { }
 
   ngOnInit():void {
-    this.castList = this.data ? this.data.cast : []
-    this.genreList = this.data ? this.data.genre : []
-    this.editMode = this.data ? true : false
-
+  
     this.MovieForm = new FormGroup<MovieForm>({
-      id: new FormControl(this.data ? this.data.id : 0),
-      title: new FormControl(this.data ? this.data.title : '', Validators.required),
-      cast: new FormControl(this.data ? this.data.cast : [], Validators.required),
-      director: new FormControl(this.data ? this.data.director : '', Validators.required),
-      plot: new FormControl(this.data ? this.data.plot : '', Validators.required),
-      genre: new FormControl(this.data ? this.data.genre : [], Validators.required),
-      poster: new FormControl(this.data ? this.data.poster : '', Validators.required),
-      releaseDate: new FormControl(this.data ? this.data.releaseDate : '', Validators.required),
-      trailer: new FormControl(this.data ? this.data.trailer : '', Validators.required)
+      id: new FormControl(0),
+      title: new FormControl('', Validators.required),
+      cast: new FormControl([], Validators.required),
+      director: new FormControl('', Validators.required),
+      plot: new FormControl('', Validators.required),
+      genre: new FormControl([], Validators.required),
+      poster: new FormControl('', Validators.required),
+      releaseDate: new FormControl('', Validators.required),
+      trailer: new FormControl('', Validators.required)
     });
+
+    if(this.data){
+      this.castList = this.data.cast 
+      this.genreList =this.data.genre
+      this.editMode = true
+
+      const editData: Movie = this.data
+      this.MovieForm.patchValue(editData);
+    }
   }
 
 
@@ -181,7 +188,7 @@ export class AddmovieComponent implements OnInit {
   public get MovieCtrl() { return this.MovieForm.controls }
   
   private getMovieList(): void{
-    this.movieService.getMovies(this.page,this.limit,this.selectedGenres).subscribe(res => {
+    this.movieService.getMovies(this.movieService.currentPage.getValue(),this.limit,this.selectedGenres,this.searchQuery).subscribe(res => {
       if (res && res.data) {
         this.movieService.movieList.next(res.data.paginatedList)
       }

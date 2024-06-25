@@ -24,6 +24,7 @@ export class MoviecardComponent {
   page: number = 1;
   limit: number = 12;
   selectedGenres: string[] = []
+  searchQuery: string = ''
   @ViewChild('confirmationDialog') confirmationDialog!: TemplateRef<any>;
 
   @Input() movie!: Movie 
@@ -56,7 +57,7 @@ export class MoviecardComponent {
     if(movie){
       this.adminService.deleteMovie(movie.id).subscribe({
         next: ()=>{
-          this.movieService.getMovies(this.page,this.limit,this.selectedGenres).subscribe(res => {
+          this.movieService.getMovies(this.movieService.currentPage.getValue(),this.limit,this.selectedGenres,this.searchQuery).subscribe(res => {
             if(res && res.data){
               this.movieService.movieList.next(res.data.paginatedList)
             }

@@ -29,7 +29,6 @@ namespace AngularAuthApi.Controllers
         [HttpGet, Route("/api/user/get-avg-rating", Name = "GetAvgRating")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ResponseDto<double>>> GetAvgRating(string title)
         {
             ResponseDto<double> response = new ResponseDto<double>();
@@ -45,7 +44,7 @@ namespace AngularAuthApi.Controllers
                 {
                     response.Success = false;
                     response.Message = "No ratings found for this movie";
-                    return NotFound(response);
+                    return Ok(response);
                 }
 
                 var avgRating = await _movie.GetAvgRating(title); 

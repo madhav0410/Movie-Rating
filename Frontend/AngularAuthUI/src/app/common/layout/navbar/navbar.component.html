@@ -4,14 +4,15 @@
         <img src="../../../../assets/appLogo.png" alt="Logo" width="100" class="d-inline-block align-text-top">
       </a>
       <div>
-        <a class="me-3" mat-flat-button routerLink="/admin/dashboard">Home</a>
+        <a class="me-3" mat-button routerLink="/admin/dashboard">Home</a>
         @if(isAuthenticated && role === "1"){
-           <button mat-flat-button (click)="openAddMovieDialog()">Add Movie</button>
+           <button mat-button (click)="openAddMovieDialog()">Add Movie</button>
         }@if(!isAuthenticated){
-           <a mat-flat-button routerLink="/account/login">Login</a> 
+           <a class="me-3" mat-button routerLink="/account/login">Login</a> 
+           <a mat-button routerLink="/account/sign-up">Sign Up</a> 
         }
         @if(isAuthenticated){
-          <button class="m-3" mat-flat-button  (click)="logout()" type="submit">Logout</button>
+          <button class="m-3" mat-button  (click)="logout()" type="submit">Logout</button>
         }
       </div>
     </div>
